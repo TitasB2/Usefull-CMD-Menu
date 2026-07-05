@@ -45,7 +45,7 @@ echo.
 echo 1. Utility
 echo 2. Tools
 echo 3. Storage
-echo 4. Backup
+echo 4. Backup (USE WITH CAUTION)
 echo 5. Display
 echo 6. Audio
 echo 7. Account
@@ -157,6 +157,7 @@ echo 2. Backup Pictures to Desktop\Backup
 echo 3. Backup Desktop to Desktop\Backup
 echo 4. %esc%[31mBack%esc%[0m
 echo.
+echo = USE WITH YOUR OWN CAUTION IT MIGHT MAULFUNCION =
 choice /c 1234 /n /m "Select: "
 
 set "backupdir=%userprofile%\Desktop\Backup"
@@ -198,13 +199,10 @@ echo.
 choice /c 12345 /n /m "Select: "
 
 if errorlevel 5 goto main
-if errorlevel 4 start "" colorcpl
-goto :display
-if errorlevel 3 start "" ms-settings:display
-goto :display
-if errorlevel 2 start "" desk.cpl
-goto :display
-if errorlevel 1 start "" ms-settings:display
+if errorlevel 4 start "" colorcpl & goto :display
+if errorlevel 3 start "" ms-settings:display & goto :display
+if errorlevel 2 start "" desk.cpl & goto :display
+if errorlevel 1 start "" ms-settings:display & goto :display
 
 pause
 goto :display
@@ -223,16 +221,13 @@ echo 3. Test sound (beep)
 echo 4. Playback devices
 echo 5. %esc%[31mBack%esc%[0m
 echo.
-choice /c 12349 /n /m "Select: "
+choice /c 12345 /n /m "Select: "
 
 if errorlevel 5 goto main
-if errorlevel 4 rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,0
-goto :display
-if errorlevel 3 powershell -Command "[console]::beep(1000,500)"
-goto :display
-if errorlevel 2 start "" ms-settings:sound
-goto :display
-if errorlevel 1 sndvol
+if errorlevel 4 rundll32.exe shell32.dll,Control_RunDLL mmsys.cpl,,0 & goto:audio
+if errorlevel 3 powershell -Command "[console]::beep(1000,500)" & goto :audio
+if errorlevel 2 start "" ms-settings:sound & goto :audio
+if errorlevel 1 sndvol & goto :audio
 
 pause
 goto :audio
